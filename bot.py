@@ -38,25 +38,43 @@ def decrypt(encrypted_message):
     return cipher_suite.decrypt(bytes(encrypted_message, 'utf8')).decode("utf-8")
 
 
+def send_message(receiver):
+    with open('sto_pensando_archive_encrypted.pickle', 'r', encoding='utf8') as f:
+        archive = f.read()
+        forwards_list = eval(archive)
+    dice_roll = random.randint(0, len(forwards_list) - 1)
+    for elem in forwards_list[dice_roll]:
+        bot.sendMessage(receiver, decrypt(elem), parse_mode='html')
+
+
 def interact(message_in):
     write_to = message_in['chat']['id']
     if write_to in authorized_chats:
         if message_in['text'] == '/pensa' or message_in['text'] == '/pensa@HoPensatoBot':
-            with open('sto_pensando_archive_encrypted.pickle', 'r', encoding='utf8') as f:
-                archive = f.read()
-                forwards_list = eval(archive)
-            dice_roll = random.randint(0, len(forwards_list) - 1)
-            for elem in forwards_list[dice_roll]:
-                bot.sendMessage(write_to, decrypt(elem), parse_mode='html')
+            send_message(write_to)
     else:
         bot.sendMessage(write_to, 'Questa è una chat illegale non autorizzata dall\'egemone'
                         ' Leonardo Nadali')
+
+
+def random_message(cycle):
+    probability = 15552000 / 72  # probability to send a message each hour
+
+    maximum = int(1/(probability*cycle/60))
+    if maximum < 1:
+        maximum = 1
+    dice_roll = random.randint(1, maximum)
+
+    if dice_roll == 1:
+        send_message(leonardo)
 
 
 # main loop
 while True:
     loop_cycle = 2  # number of seconds between loops
     time.sleep(loop_cycle)
+
+    random_message(loop_cycle)
 
     # variable that stores most recent messages
     received_messages = []

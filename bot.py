@@ -24,9 +24,9 @@ for x in bot.getUpdates():
 messages_num = len(received_messages)
 print('Messages received:', messages_num)
 previous_message = received_messages[-1]['update_id']
+leonardo = 24030913
 test_group = -307834730
 sto_pensando = -18933338
-leonardo = 24030913
 sadness_union = -1350452
 authorized_chats = [test_group, sto_pensando, leonardo, sadness_union]
 

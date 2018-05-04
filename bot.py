@@ -51,7 +51,7 @@ def interact(message_in):
     write_to = message_in['chat']['id']
     if write_to in authorized_chats:
         if message_in['text'] == '/pensa' or message_in['text'] == '/pensa@HoPensatoBot':
-            send_message(write_to)
+            # send_message(write_to)
     else:
         bot.sendMessage(write_to, 'Questa è una chat illegale non autorizzata dall\'egemone'
                         ' Leonardo Nadali')

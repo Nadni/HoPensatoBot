@@ -1,11 +1,17 @@
+from cryptography.fernet import Fernet
+import cryptography
 import telepot
 import pickle
 import random
 import time
 import os
 
-print('starting bot...')
+# bot initialisation
+os.environ["HP_TOKEN"] = token
+os.environ["HP_KEY"] = key
 token = os.environ['HP_TOKEN']
+key = bytes(os.environ['HP_KEY'], 'utf8')
+cipher_suite = Fernet(key)
 bot = telepot.Bot(token)
 received_messages = []
 authors = []
@@ -23,20 +29,29 @@ previous_message = received_messages[-1]['update_id']
 test_group = -307834730
 sto_pensando = -18933338
 leonardo = 24030913
-
-with open('sto_pensando_archive.pickle', 'rb') as f:
-    forwards_list = pickle.load(f)
+authorized_chats = [test_group, sto_pensando, leonardo]
 
 for message in received_messages:
     print(message)
 
 
+def decrypt(encrypted_message):
+    return cipher_suite.decrypt(bytes(encrypted_message, 'utf8')).decode("utf-8")
+
+
 def interact(message_in):
     write_to = message_in['chat']['id']
-    if message_in['text'] == '/pensa' or message_in['text'] == '/pensa@HoPensatoBot':
-        dice_roll = random.randint(0, len(forwards_list) - 1)
-        for elem in forwards_list[dice_roll]:
-            bot.sendMessage(write_to, elem, parse_mode='html')
+    if write_to in authorized_chats:
+        if message_in['text'] == '/pensa' or message_in['text'] == '/pensa@HoPensatoBot':
+            with open('sto_pensando_archive_encrypted.pickle', 'r', encoding='utf8') as f:
+                archive = f.read()
+                forwards_list = eval(archive)
+            dice_roll = random.randint(0, len(forwards_list) - 1)
+            for elem in forwards_list[dice_roll]:
+                bot.sendMessage(write_to, decrypt(elem), parse_mode='html')
+    else:
+        bot.sendMessage(write_to, 'Questa è una chat illegale non autorizzata dall\'egemone'
+                        ' Leonardo Nadali')
 
 
 # main loop

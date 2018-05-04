@@ -27,7 +27,8 @@ previous_message = received_messages[-1]['update_id']
 test_group = -307834730
 sto_pensando = -18933338
 leonardo = 24030913
-authorized_chats = [test_group, sto_pensando, leonardo]
+sadness_union = -1350452
+authorized_chats = [test_group, sto_pensando, leonardo, sadness_union]
 
 for message in received_messages:
     print(message)

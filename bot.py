@@ -7,8 +7,6 @@ import time
 import os
 
 # bot initialisation
-os.environ["HP_TOKEN"] = token
-os.environ["HP_KEY"] = key
 token = os.environ['HP_TOKEN']
 key = bytes(os.environ['HP_KEY'], 'utf8')
 cipher_suite = Fernet(key)

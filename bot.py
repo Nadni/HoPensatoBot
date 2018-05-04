@@ -58,7 +58,7 @@ def interact(message_in):
 
 
 def random_message(cycle):
-    probability = 15552000 / 72  # probability to send a message each hour
+    probability = 1 / 72  # probability to send a message each hour
 
     maximum = int(1/(probability*cycle/60))
     if maximum < 1:
@@ -66,7 +66,7 @@ def random_message(cycle):
     dice_roll = random.randint(1, maximum)
 
     if dice_roll == 1:
-        send_message(leonardo)
+        send_message(sadness_union)
 
 
 # main loop

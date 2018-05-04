@@ -58,7 +58,7 @@ def interact(message_in):
 
 
 def random_message(cycle):
-    probability = 1 / 72  # probability to send a message each hour
+    probability = 1 / 48  # probability to send a message each hour
 
     maximum = int(1/(probability*cycle/60))
     if maximum < 1:

@@ -52,23 +52,25 @@ def interact(message_in):
     if write_to in authorized_chats:
         if message_in['text'] == '/pensa' or message_in['text'] == '/pensa@HoPensatoBot':
             # send_message(write_to)
+            pass
     else:
         bot.sendMessage(write_to, 'Questa è una chat illegale non autorizzata dall\'egemone'
                         ' Leonardo Nadali')
 
 
 def random_message(cycle):
-    probability = 1 / 48  # probability to send a message each hour
+    probability = 1 / 24 / 60  # probability to send a message each hour
 
     maximum = int(1/(probability*cycle/60))
     if maximum < 1:
         maximum = 1
     dice_roll = random.randint(1, maximum)
-    bot.sendMessage(leonardo, dice_roll)
 
     if dice_roll == 1:
         send_message(sadness_union)
 
+
+send_message(sadness_union)
 
 # main loop
 while True:

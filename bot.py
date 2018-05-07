@@ -64,6 +64,7 @@ def random_message(cycle):
     if maximum < 1:
         maximum = 1
     dice_roll = random.randint(1, maximum)
+    bot.sendMessage(leonardo, dice_roll)
 
     if dice_roll == 1:
         send_message(sadness_union)

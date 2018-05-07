@@ -59,18 +59,18 @@ def interact(message_in):
 
 
 def random_message(cycle):
-    probability = 1 / 24 / 60  # probability to send a message each hour
+    probability = 1 / 24  # probability to send a message each hour
 
-    maximum = int(1/(probability*cycle/60))
+    maximum = int(1/(probability*cycle/3600))
     if maximum < 1:
         maximum = 1
     dice_roll = random.randint(1, maximum)
+    print(maximum)
+    print(dice_roll)
 
     if dice_roll == 1:
         send_message(sadness_union)
 
-
-send_message(sadness_union)
 
 # main loop
 while True:
